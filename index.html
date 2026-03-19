@@ -612,9 +612,9 @@ footer strong{color:var(--acc);}
           <h2>Let's Build Something Remarkable</h2>
           <p class="cleft-desc">Open to full-time roles, consulting engagements, freelance projects and long-term collaborations across AI domains.</p>
           <div class="clinks">
-            <a href="/cdn-cgi/l/email-protection#67060e13021414060a27000a060e0b4904080a" class="clink">
+            <a href="mailto:aitessam@gmail.com" class="clink">
               <div class="cico">&#9993;</div>
-              <div><div class="clbl">Email</div><div class="cval"><span class="__cf_email__" data-cfemail="d1b0b8a5b4a2a2b0bc91b6bcb0b8bdffb2bebc">[email&#160;protected]</span></div></div>
+              <div><div class="clbl">Email</div><div class="cval">aitessam@gmail.com</div></div>
             </a>
             <a href="http://www.linkedin.com/in/muhammad-aitessam-ahmed-18a815113" target="_blank" class="clink">
               <div class="cico">&#128188;</div>
@@ -632,7 +632,7 @@ footer strong{color:var(--acc);}
             <input type="email" placeholder="Your Email"/>
             <input type="text" placeholder="Subject"/>
             <textarea placeholder="Your message..."></textarea>
-            <a href="/cdn-cgi/l/email-protection#89e8e0fdecfafae8e4c9eee4e8e0e5a7eae6e4" class="btn-p" style="text-align:center;display:block;">Send Message</a>
+            <a href="mailto:aitessam@gmail.com" class="btn-p" style="text-align:center;display:block;">Send Message</a>
           </div>
         </div>
       </div>
@@ -644,7 +644,7 @@ footer strong{color:var(--acc);}
   <p><strong>Muhammad Aitessam Ahmed</strong> &bull; Senior AI/ML Engineer</p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── THEME TOGGLE ──
 const html=document.documentElement;
 const btn=document.getElementById('themeBtn');
@@ -695,145 +695,211 @@ function drawC1(){
   const W=c.parentElement.offsetWidth||560,H=c.parentElement.offsetHeight||280;
   c.width=W;c.height=H;
   const ctx=c.getContext('2d');
-  const acc='#8bb4f8',acc2='#5d9cf5',grn='#5de69a',org='#f59e0b',pur='#c084fc';
-  const bg='#1c2128',surf='#21262d';
-  let t=0,pars=[];
+  const A='#8bb4f8',A2='#5d9cf5',G='#5de69a',O='#f59e0b',P='#c084fc';
+  const BG='#1c2128',S='#21262d',S2='#2d333b';
+  let t=0;
 
-  function rr(x,y,w,h,r2){
-    ctx.beginPath();ctx.moveTo(x+r2,y);ctx.lineTo(x+w-r2,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r2);
-    ctx.lineTo(x+w,y+h-r2);ctx.quadraticCurveTo(x+w,y+h,x+w-r2,y+h);ctx.lineTo(x+r2,y+h);
-    ctx.quadraticCurveTo(x,y+h,x,y+h-r2);ctx.lineTo(x,y+r2);ctx.quadraticCurveTo(x,y,x+r2,y);ctx.closePath();
+  function rr(x,y,w,h,r){
+    ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);
+    ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
   }
 
-  const INS=[
-    {y:.15,label:'Scanned Docs',sub:'OCR Pipeline',color:org,icon:'D'},
-    {y:.38,label:'Speech Audio',sub:'STT + NLP',color:acc2,icon:'M'},
-    {y:.62,label:'Patient Query',sub:'RAG Assistant',color:pur,icon:'Q'},
-    {y:.85,label:'Medical History',sub:'All Records',color:acc,icon:'H'},
+  // Pipeline steps — horizontal left to right
+  // [Input] -> [OCR/STT] -> [LLM Core] -> [FHIR/SOAP/RAG] -> [Output]
+  // Top row: document flow    Bottom row: speech/query flow
+  // We draw 5 columns of cards with arrows between them
+
+  const COL=[
+    W*0.06,  // col 0 - Inputs
+    W*0.26,  // col 1 - OCR / STT
+    W*0.50,  // col 2 - LLM Core (center)
+    W*0.73,  // col 3 - Processing
+    W*0.94,  // col 4 - Outputs
   ];
-  const OUTS=[
-    {y:.15,label:'FHIR Resources',sub:'-60% data entry',color:grn,icon:'F'},
-    {y:.38,label:'SOAP Notes',sub:'+50% efficiency',color:acc2,icon:'S'},
-    {y:.62,label:'Clinical Q&A',sub:'Contextual RAG',color:pur,icon:'R'},
-    {y:.85,label:'Dept Summary',sub:'History AI',color:acc,icon:'A'},
+  const CW=W*0.17; // card width
+  const CH=H*0.21; // card height
+  const CR=6;
+
+  // Row centers
+  const R1=H*0.22; // top row
+  const R2=H*0.55; // middle row
+  const R3=H*0.82; // bottom row
+
+  // Cards definition: [col, row, label, sub, color, dotColor]
+  const cards=[
+    // Inputs (col 0)
+    {col:0,row:R1,label:'Scanned Docs',sub:'Unstructured',color:O,tag:'IN'},
+    {col:0,row:R2,label:'Voice / Audio',sub:'Doctor + Patient',color:A2,tag:'IN'},
+    {col:0,row:R3,label:'Patient Query',sub:'Chat interface',color:P,tag:'IN'},
+    // Processing layer (col 1)
+    {col:1,row:R1,label:'OCR Engine',sub:'Doc digitization',color:O,tag:'OCR'},
+    {col:1,row:R2,label:'Speech-to-Text',sub:'Clinical NLP',color:A2,tag:'STT'},
+    {col:1,row:R3,label:'Query Parser',sub:'Intent extract',color:P,tag:'NLP'},
+    // LLM core (col 2) - one tall card spanning all rows
+    // Outputs (col 3)
+    {col:3,row:R1,label:'FHIR Resources',sub:'-60% data entry',color:G,tag:'OUT'},
+    {col:3,row:R2,label:'SOAP + Rx',sub:'+50% efficiency',color:A2,tag:'OUT'},
+    {col:3,row:R3,label:'RAG Answer',sub:'Clinical Q&A',color:P,tag:'OUT'},
+    // Final (col 4)
+    {col:4,row:R1,label:'EHR System',sub:'FHIR-compliant',color:G,tag:''},
+    {col:4,row:R2,label:'Doctor UI',sub:'Auto-generated',color:A,tag:''},
+    {col:4,row:R3,label:'AI Assistant',sub:'HIPAA secure',color:P,tag:''},
   ];
 
-  const coreX=W*.5,coreY=H*.5;
-  const inX=W*.19,outX=W*.81;
-  const nodeW=W*.17,nodeH=H*.13;
+  // Particles per connection
+  const conns=[
+    // col0 -> col1
+    {x0:0,y0:R1,x1:1,y1:R1,c:O},{x0:0,y0:R2,x1:1,y1:R2,c:A2},{x0:0,y0:R3,x1:1,y1:R3,c:P},
+    // col1 -> col2 (core center)
+    {x0:1,y0:R1,x1:2,y1:H*0.5,c:O},{x0:1,y0:R2,x1:2,y1:H*0.5,c:A2},{x0:1,y0:R3,x1:2,y1:H*0.5,c:P},
+    // col2 (core) -> col3
+    {x0:2,y0:H*0.5,x1:3,y1:R1,c:G},{x0:2,y0:H*0.5,x1:3,y1:R2,c:A2},{x0:2,y0:H*0.5,x1:3,y1:R3,c:P},
+    // col3 -> col4
+    {x0:3,y0:R1,x1:4,y1:R1,c:G},{x0:3,y0:R2,x1:4,y1:R2,c:A2},{x0:3,y0:R3,x1:4,y1:R3,c:P},
+  ];
 
-  INS.forEach((n,i)=>{for(let j=0;j<3;j++)pars.push({type:'in',i,p:(j/3+i*.07)%1,sp:.005+Math.random()*.003,c:n.color});});
-  OUTS.forEach((n,i)=>{for(let j=0;j<3;j++)pars.push({type:'out',i,p:(j/3+i*.07)%1,sp:.005+Math.random()*.003,c:n.color});});
+  // Convert col index to x center
+  function cx(col){return COL[col]+(col===2?CW*0.5:CW*0.5);}
 
-  function bx3(x0,x1,x2,x3,tt){return Math.pow(1-tt,3)*x0+3*Math.pow(1-tt,2)*tt*x1+3*(1-tt)*tt*tt*x2+Math.pow(tt,3)*x3;}
-
-  function ppos(par){
-    const R=H*.14;
-    if(par.type==='in'){
-      const y0=INS[par.i].y*H;const mx=(inX+coreX)/2;
-      return{x:bx3(inX,mx,mx,coreX-R*.7,par.p),y:bx3(y0,y0,coreY,coreY,par.p)};
+  let pars=[];
+  conns.forEach((cn,i)=>{
+    for(let j=0;j<3;j++){
+      pars.push({cn,p:(j/3+i*0.05)%1,sp:0.006+Math.random()*0.003,c:cn.c});
     }
-    const y1=OUTS[par.i].y*H;const mx=(coreX+outX)/2;
-    return{x:bx3(coreX+R*.7,mx,mx,outX,par.p),y:bx3(coreY,coreY,y1,y1,par.p)};
-  }
+  });
 
-  function drawNode(x,y,label,sub,color,icon){
-    const nx=x-nodeW/2,ny=y-nodeH/2;
-    ctx.shadowColor=color;ctx.shadowBlur=6+2*Math.sin(t*.04);
-    ctx.fillStyle=surf;ctx.globalAlpha=.94;rr(nx,ny,nodeW,nodeH,6);ctx.fill();
+  function drawCard(col,row,label,sub,color,tag){
+    const x=COL[col],y=row-CH/2,w=CW,h=CH;
+    // glow
+    ctx.shadowColor=color;ctx.shadowBlur=5+2*Math.sin(t*0.05);
+    ctx.fillStyle=S;ctx.globalAlpha=0.93;
+    rr(x,y,w,h,CR);ctx.fill();
     ctx.shadowBlur=0;ctx.globalAlpha=1;
-    ctx.strokeStyle=color;ctx.lineWidth=1.2;rr(nx,ny,nodeW,nodeH,6);ctx.stroke();
-    ctx.beginPath();ctx.arc(nx+14,ny+nodeH/2,7,0,Math.PI*2);
-    ctx.fillStyle=color;ctx.globalAlpha=.16;ctx.fill();ctx.globalAlpha=1;
-    ctx.fillStyle=color;ctx.font='bold 7px monospace';ctx.textAlign='center';
-    ctx.fillText(icon,nx+14,ny+nodeH/2+2.5);
-    ctx.fillStyle=color;ctx.font='bold 7px sans-serif';ctx.textAlign='left';
-    ctx.fillText(label,nx+25,ny+nodeH/2-2);
-    ctx.fillStyle='rgba(139,180,248,.4)';ctx.font='5.5px sans-serif';
-    ctx.fillText(sub,nx+25,ny+nodeH/2+10);
+    ctx.strokeStyle=color;ctx.lineWidth=1.1;
+    rr(x,y,w,h,CR);ctx.stroke();
+    // top accent bar
+    ctx.fillStyle=color;ctx.globalAlpha=0.18;
+    rr(x,y,w,h*0.28,CR);ctx.fill();ctx.globalAlpha=1;
+    // tag pill
+    if(tag){
+      const tw=ctx.measureText(tag).width+8;
+      ctx.fillStyle=color;ctx.globalAlpha=0.2;
+      rr(x+w-tw-4,y+3,tw,12,3);ctx.fill();ctx.globalAlpha=1;
+      ctx.fillStyle=color;ctx.font='bold 5.5px monospace';ctx.textAlign='center';
+      ctx.fillText(tag,x+w-tw/2-4,y+11);
+    }
+    // label
+    ctx.fillStyle=color;ctx.font='bold 8px sans-serif';ctx.textAlign='center';
+    ctx.fillText(label,x+w/2,y+h*0.58);
+    // sub
+    ctx.fillStyle='rgba(139,180,248,0.5)';ctx.font='6px sans-serif';
+    ctx.fillText(sub,x+w/2,y+h*0.80);
   }
 
-  function drawCore(){
-    const R=H*.14;
-    ctx.beginPath();ctx.arc(coreX,coreY,R+8,0,Math.PI*2);
-    ctx.strokeStyle=acc2;ctx.lineWidth=1;ctx.globalAlpha=.1+.05*Math.sin(t*.05);ctx.stroke();ctx.globalAlpha=1;
-    ctx.save();ctx.translate(coreX,coreY);ctx.rotate(t*.007);
-    ctx.beginPath();ctx.arc(0,0,R+3,0,Math.PI*2);
-    ctx.strokeStyle=acc2;ctx.lineWidth=1.2;ctx.setLineDash([5,9]);ctx.globalAlpha=.28;ctx.stroke();
+  function drawLLMCore(){
+    const x=COL[2],y=H*0.07,w=CW,h=H*0.86,r=8;
+    // outer glow
+    ctx.shadowColor=A2;ctx.shadowBlur=12+4*Math.sin(t*0.04);
+    ctx.fillStyle='rgba(22,27,34,0.96)';ctx.globalAlpha=0.97;
+    rr(x,y,w,h,r);ctx.fill();
+    ctx.shadowBlur=0;ctx.globalAlpha=1;
+    ctx.strokeStyle=A2;ctx.lineWidth=1.5;
+    rr(x,y,w,h,r);ctx.stroke();
+    // rotating ring inside
+    const cx2=x+w/2,cy2=y+h*0.42,rng=w*0.32;
+    ctx.save();ctx.translate(cx2,cy2);ctx.rotate(t*0.008);
+    ctx.beginPath();ctx.arc(0,0,rng,0,Math.PI*2);
+    ctx.strokeStyle=A2;ctx.lineWidth=1;ctx.setLineDash([5,8]);ctx.globalAlpha=0.25;ctx.stroke();
     ctx.setLineDash([]);ctx.globalAlpha=1;ctx.restore();
-    ctx.beginPath();ctx.arc(coreX,coreY,R,0,Math.PI*2);
-    const cg=ctx.createRadialGradient(coreX,coreY,0,coreX,coreY,R);
-    cg.addColorStop(0,'rgba(93,156,245,.2)');cg.addColorStop(1,'rgba(22,27,34,.92)');
+    // core circle
+    ctx.beginPath();ctx.arc(cx2,cy2,rng*0.7,0,Math.PI*2);
+    const cg=ctx.createRadialGradient(cx2,cy2,0,cx2,cy2,rng*0.7);
+    cg.addColorStop(0,'rgba(93,156,245,0.22)');cg.addColorStop(1,'rgba(22,27,34,0.9)');
     ctx.fillStyle=cg;ctx.fill();
-    ctx.strokeStyle=acc2;ctx.lineWidth=1.5;ctx.stroke();
-    ctx.fillStyle=acc;ctx.font='bold 9.5px sans-serif';ctx.textAlign='center';
-    ctx.fillText('LLM + RAG',coreX,coreY-10);
-    ctx.fillStyle='rgba(139,180,248,.55)';ctx.font='6.5px sans-serif';
-    ctx.fillText('Clinical NLP Engine',coreX,coreY+4);
-    // HIPAA badge
-    ctx.fillStyle='rgba(93,222,154,.08)';rr(coreX-26,coreY+14,52,13,4);ctx.fill();
-    ctx.strokeStyle=grn;ctx.lineWidth=.7;ctx.globalAlpha=.45;rr(coreX-26,coreY+14,52,13,4);ctx.stroke();ctx.globalAlpha=1;
-    ctx.fillStyle=grn;ctx.font='bold 5.5px monospace';ctx.textAlign='center';
-    ctx.fillText('HIPAA',coreX,coreY+24);
-    ctx.beginPath();ctx.arc(coreX,coreY-22,3,0,Math.PI*2);
-    ctx.fillStyle=acc2;ctx.globalAlpha=.5+.4*Math.sin(t*.12);ctx.fill();ctx.globalAlpha=1;
+    ctx.strokeStyle=A2;ctx.lineWidth=1.2;ctx.stroke();
+    // pulsing center dot
+    ctx.beginPath();ctx.arc(cx2,cy2,3,0,Math.PI*2);
+    ctx.fillStyle=A2;ctx.globalAlpha=0.5+0.4*Math.sin(t*0.12);ctx.fill();ctx.globalAlpha=1;
+    // header label
+    ctx.fillStyle=A;ctx.font='bold 7px sans-serif';ctx.textAlign='center';
+    ctx.fillText('LLM + RAG',cx2,y+h*0.17);
+    ctx.fillStyle='rgba(139,180,248,0.45)';ctx.font='5.5px monospace';
+    ctx.fillText('Clinical NLP',cx2,y+h*0.24);
+    // labels inside circle
+    ctx.fillStyle=A;ctx.font='bold 9px sans-serif';
+    ctx.fillText('AI Core',cx2,cy2+3);
+    // HIPAA badge bottom of card
+    ctx.fillStyle='rgba(93,222,154,0.1)';
+    rr(x+8,y+h*0.82,w-16,16,4);ctx.fill();
+    ctx.strokeStyle=G;ctx.lineWidth=0.7;ctx.globalAlpha=0.4;
+    rr(x+8,y+h*0.82,w-16,16,4);ctx.stroke();ctx.globalAlpha=1;
+    ctx.fillStyle=G;ctx.font='bold 6px monospace';ctx.textAlign='center';
+    ctx.fillText('HIPAA  |  AWS',cx2,y+h*0.82+10);
+    // AWS tag bottom
+    ctx.fillStyle='rgba(139,180,248,0.25)';ctx.font='5.5px monospace';
+    ctx.fillText('Encrypted',cx2,y+h*0.93);
   }
 
-  function drawConn(x0,y0,x1,y1,color){
-    ctx.beginPath();ctx.moveTo(x0,y0);
-    ctx.bezierCurveTo((x0+x1)/2,y0,(x0+x1)/2,y1,x1,y1);
-    ctx.strokeStyle=color;ctx.lineWidth=.9;ctx.globalAlpha=.12;ctx.stroke();ctx.globalAlpha=1;
+  function drawConn(cn){
+    const x0=COL[conns.indexOf(cn)>=0?0:0];// unused
+    const sx=cn.x0===2?COL[2]+CW:COL[cn.x0]+CW;
+    const sy=cn.y0;
+    const ex=cn.x1===2?COL[2]:COL[cn.x1];
+    const ey=cn.y1;
+    ctx.beginPath();ctx.moveTo(sx,sy);
+    ctx.bezierCurveTo((sx+ex)/2,sy,(sx+ex)/2,ey,ex,ey);
+    ctx.strokeStyle=cn.c;ctx.lineWidth=0.9;ctx.globalAlpha=0.13;ctx.stroke();ctx.globalAlpha=1;
   }
 
-  // chat bubbles cycling
-  const chats=[
-    {q:'Patient #4421 SpO2?',a:'96% - Normal range'},
-    {q:'Cardiology summary?',a:'HTN, DM2, 3wk ago'},
-  ];
-  const chatCycle=180;
+  function parPos(par){
+    const cn=par.cn;
+    const sx=cn.x0===2?COL[2]+CW:COL[cn.x0]+CW;
+    const sy=cn.y0;
+    const ex=cn.x1===2?COL[2]:COL[cn.x1];
+    const ey=cn.y1;
+    const p=par.p;
+    const mx=(sx+ex)/2;
+    return{
+      x:Math.pow(1-p,3)*sx+3*Math.pow(1-p,2)*p*mx+3*(1-p)*p*p*mx+Math.pow(p,3)*ex,
+      y:Math.pow(1-p,3)*sy+3*Math.pow(1-p,2)*p*sy+3*(1-p)*p*p*ey+Math.pow(p,3)*ey
+    };
+  }
 
   function frame(){
     ctx.clearRect(0,0,W,H);
-    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-    ctx.strokeStyle='rgba(139,180,248,0.03)';ctx.lineWidth=.5;
-    for(let x2=0;x2<W;x2+=40){ctx.beginPath();ctx.moveTo(x2,0);ctx.lineTo(x2,H);ctx.stroke();}
-    for(let y2=0;y2<H;y2+=40){ctx.beginPath();ctx.moveTo(0,y2);ctx.lineTo(W,y2);ctx.stroke();}
+    ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
+    // grid
+    ctx.strokeStyle='rgba(139,180,248,0.025)';ctx.lineWidth=0.5;
+    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
 
-    const R=H*.14;
-    INS.forEach((n,i)=>drawConn(inX,n.y*H,coreX-R*.72,coreY,n.color));
-    OUTS.forEach((n,i)=>drawConn(coreX+R*.72,coreY,outX,n.y*H,n.color));
+    // connectors
+    conns.forEach(cn=>drawConn(cn));
 
+    // particles
     pars.forEach(p=>{
       p.p=(p.p+p.sp)%1;
-      const pos=ppos(p);
-      ctx.beginPath();ctx.arc(pos.x,pos.y,2.5,0,Math.PI*2);
-      ctx.fillStyle=p.c;ctx.globalAlpha=.88;ctx.fill();ctx.globalAlpha=1;
+      const pos=parPos(p);
+      ctx.beginPath();ctx.arc(pos.x,pos.y,2.3,0,Math.PI*2);
+      ctx.fillStyle=p.c;ctx.globalAlpha=0.88;ctx.fill();ctx.globalAlpha=1;
     });
 
-    drawCore();
-    INS.forEach((n,i)=>drawNode(inX,n.y*H,n.label,n.sub,n.color,n.icon));
-    OUTS.forEach((n,i)=>drawNode(outX,n.y*H,n.label,n.sub,n.color,n.icon));
+    // LLM core (drawn before cards so cards overlay edges)
+    drawLLMCore();
 
-    // floating chat bubble above core
-    const ci=Math.floor(t/chatCycle)%chats.length;
-    const phase=t%chatCycle;
-    const ch=chats[ci];
-    const bw=W*.25,bh=H*.09,bx2=coreX-bw/2,by2=H*.03;
-    let alpha=phase<15?(phase/15):phase>chatCycle-15?((chatCycle-phase)/15):1;
-    ctx.globalAlpha=alpha*.88;
-    ctx.fillStyle='rgba(22,27,34,0.95)';rr(bx2,by2,bw,bh,5);ctx.fill();
-    ctx.strokeStyle=pur;ctx.lineWidth=.8;rr(bx2,by2,bw,bh,5);ctx.stroke();
-    // Q label
-    ctx.fillStyle=pur;ctx.font='bold 5.5px monospace';ctx.textAlign='left';
-    ctx.fillText('Q',bx2+6,by2+bh*.38);
-    ctx.fillStyle='rgba(139,180,248,.7)';ctx.font='6px sans-serif';
-    ctx.fillText(ch.q,bx2+16,by2+bh*.38);
-    // A label
-    ctx.fillStyle=grn;ctx.font='bold 5.5px monospace';
-    ctx.fillText('A',bx2+6,by2+bh*.75);
-    ctx.fillStyle='rgba(139,180,248,.7)';ctx.font='6px sans-serif';
-    ctx.fillText(ch.a,bx2+16,by2+bh*.75);
-    ctx.globalAlpha=1;
+    // all cards except col 2 (core)
+    cards.forEach(cd=>drawCard(cd.col,cd.row,cd.label,cd.sub,cd.color,cd.tag));
+
+    // column section labels
+    const labels=[['INPUTS','rgba(139,180,248,0.3)'],['EXTRACT','rgba(139,180,248,0.3)'],null,['GENERATE','rgba(139,180,248,0.3)'],['DELIVER','rgba(139,180,248,0.3)']];
+    labels.forEach((lb,i)=>{
+      if(!lb)return;
+      ctx.fillStyle=lb[1];ctx.font='bold 5.5px monospace';ctx.textAlign='center';
+      ctx.fillText(lb[0],COL[i]+CW/2,H*0.97);
+    });
+    ctx.fillStyle='rgba(93,156,245,0.3)';ctx.font='bold 5.5px monospace';ctx.textAlign='center';
+    ctx.fillText('AI CORE',COL[2]+CW/2,H*0.97);
 
     t++;requestAnimationFrame(frame);
   }
