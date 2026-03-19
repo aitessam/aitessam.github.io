@@ -612,9 +612,9 @@ footer strong{color:var(--acc);}
           <h2>Let's Build Something Remarkable</h2>
           <p class="cleft-desc">Open to full-time roles, consulting engagements, freelance projects and long-term collaborations across AI domains.</p>
           <div class="clinks">
-            <a href="mailto:aitessam@gmail.com" class="clink">
+            <a href="/cdn-cgi/l/email-protection#5938302d3c2a2a3834193e34383035773a3634" class="clink">
               <div class="cico">&#9993;</div>
-              <div><div class="clbl">Email</div><div class="cval">aitessam@gmail.com</div></div>
+              <div><div class="clbl">Email</div><div class="cval"><span class="__cf_email__" data-cfemail="8feee6fbeafcfceee2cfe8e2eee6e3a1ece0e2">[email&#160;protected]</span></div></div>
             </a>
             <a href="http://www.linkedin.com/in/muhammad-aitessam-ahmed-18a815113" target="_blank" class="clink">
               <div class="cico">&#128188;</div>
@@ -632,7 +632,7 @@ footer strong{color:var(--acc);}
             <input type="email" placeholder="Your Email"/>
             <input type="text" placeholder="Subject"/>
             <textarea placeholder="Your message..."></textarea>
-            <a href="mailto:aitessam@gmail.com" class="btn-p" style="text-align:center;display:block;">Send Message</a>
+            <a href="/cdn-cgi/l/email-protection#46272f32233535272b06212b272f2a6825292b" class="btn-p" style="text-align:center;display:block;">Send Message</a>
           </div>
         </div>
       </div>
@@ -644,7 +644,7 @@ footer strong{color:var(--acc);}
   <p><strong>Muhammad Aitessam Ahmed</strong> &bull; Senior AI/ML Engineer</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── THEME TOGGLE ──
 const html=document.documentElement;
 const btn=document.getElementById('themeBtn');
@@ -696,8 +696,8 @@ function drawC1(){
   c.width=W;c.height=H;
   const ctx=c.getContext('2d');
   const A='#8bb4f8',A2='#5d9cf5',G='#5de69a',O='#f59e0b',P='#c084fc';
-  const BG='#1c2128',S='#21262d',S2='#2d333b';
-  let t=0;
+  const BG='#1c2128',S='#21262d';
+  let t=0,pars=[];
 
   function rr(x,y,w,h,r){
     ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
@@ -705,203 +705,166 @@ function drawC1(){
     ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
   }
 
-  // Pipeline steps — horizontal left to right
-  // [Input] -> [OCR/STT] -> [LLM Core] -> [FHIR/SOAP/RAG] -> [Output]
-  // Top row: document flow    Bottom row: speech/query flow
-  // We draw 5 columns of cards with arrows between them
+  // Hub-and-spoke: 4 inputs on left, central core, 4 outputs on right
+  // Generous spacing, large readable cards, minimal text
+  const cx=W*0.5, cy=H*0.5;
+  const nodeW=W*0.19, nodeH=H*0.175, nodeR=8;
+  const INX=W*0.105, OUTX=W*0.895-nodeW;
 
-  const COL=[
-    W*0.06,  // col 0 - Inputs
-    W*0.26,  // col 1 - OCR / STT
-    W*0.50,  // col 2 - LLM Core (center)
-    W*0.73,  // col 3 - Processing
-    W*0.94,  // col 4 - Outputs
+  const rowY=[H*0.13, H*0.38, H*0.62, H*0.87];
+
+  const INPUTS=[
+    {label:'Scanned Docs', sub:'OCR', color:O},
+    {label:'Voice Audio',  sub:'Speech-to-Text', color:A2},
+    {label:'Patient Query',sub:'RAG Chat', color:P},
+    {label:'Medical History',sub:'All Records', color:A},
   ];
-  const CW=W*0.17; // card width
-  const CH=H*0.21; // card height
-  const CR=6;
-
-  // Row centers
-  const R1=H*0.22; // top row
-  const R2=H*0.55; // middle row
-  const R3=H*0.82; // bottom row
-
-  // Cards definition: [col, row, label, sub, color, dotColor]
-  const cards=[
-    // Inputs (col 0)
-    {col:0,row:R1,label:'Scanned Docs',sub:'Unstructured',color:O,tag:'IN'},
-    {col:0,row:R2,label:'Voice / Audio',sub:'Doctor + Patient',color:A2,tag:'IN'},
-    {col:0,row:R3,label:'Patient Query',sub:'Chat interface',color:P,tag:'IN'},
-    // Processing layer (col 1)
-    {col:1,row:R1,label:'OCR Engine',sub:'Doc digitization',color:O,tag:'OCR'},
-    {col:1,row:R2,label:'Speech-to-Text',sub:'Clinical NLP',color:A2,tag:'STT'},
-    {col:1,row:R3,label:'Query Parser',sub:'Intent extract',color:P,tag:'NLP'},
-    // LLM core (col 2) - one tall card spanning all rows
-    // Outputs (col 3)
-    {col:3,row:R1,label:'FHIR Resources',sub:'-60% data entry',color:G,tag:'OUT'},
-    {col:3,row:R2,label:'SOAP + Rx',sub:'+50% efficiency',color:A2,tag:'OUT'},
-    {col:3,row:R3,label:'RAG Answer',sub:'Clinical Q&A',color:P,tag:'OUT'},
-    // Final (col 4)
-    {col:4,row:R1,label:'EHR System',sub:'FHIR-compliant',color:G,tag:''},
-    {col:4,row:R2,label:'Doctor UI',sub:'Auto-generated',color:A,tag:''},
-    {col:4,row:R3,label:'AI Assistant',sub:'HIPAA secure',color:P,tag:''},
+  const OUTPUTS=[
+    {label:'FHIR Resources', sub:'-60% data entry', color:G},
+    {label:'SOAP Notes',     sub:'+50% efficiency', color:A2},
+    {label:'Clinical Q&A',  sub:'RAG Assistant', color:P},
+    {label:'Dept Summary',  sub:'History AI', color:A},
   ];
 
-  // Particles per connection
-  const conns=[
-    // col0 -> col1
-    {x0:0,y0:R1,x1:1,y1:R1,c:O},{x0:0,y0:R2,x1:1,y1:R2,c:A2},{x0:0,y0:R3,x1:1,y1:R3,c:P},
-    // col1 -> col2 (core center)
-    {x0:1,y0:R1,x1:2,y1:H*0.5,c:O},{x0:1,y0:R2,x1:2,y1:H*0.5,c:A2},{x0:1,y0:R3,x1:2,y1:H*0.5,c:P},
-    // col2 (core) -> col3
-    {x0:2,y0:H*0.5,x1:3,y1:R1,c:G},{x0:2,y0:H*0.5,x1:3,y1:R2,c:A2},{x0:2,y0:H*0.5,x1:3,y1:R3,c:P},
-    // col3 -> col4
-    {x0:3,y0:R1,x1:4,y1:R1,c:G},{x0:3,y0:R2,x1:4,y1:R2,c:A2},{x0:3,y0:R3,x1:4,y1:R3,c:P},
-  ];
-
-  // Convert col index to x center
-  function cx(col){return COL[col]+(col===2?CW*0.5:CW*0.5);}
-
-  let pars=[];
-  conns.forEach((cn,i)=>{
-    for(let j=0;j<3;j++){
-      pars.push({cn,p:(j/3+i*0.05)%1,sp:0.006+Math.random()*0.003,c:cn.c});
-    }
+  // particles: 3 per lane, in and out
+  INPUTS.forEach((n,i)=>{
+    for(let j=0;j<3;j++) pars.push({dir:'in',i,p:(j/3+i*0.08)%1,sp:0.005+Math.random()*0.003,c:n.color});
+  });
+  OUTPUTS.forEach((n,i)=>{
+    for(let j=0;j<3;j++) pars.push({dir:'out',i,p:(j/3+i*0.08)%1,sp:0.005+Math.random()*0.003,c:n.color});
   });
 
-  function drawCard(col,row,label,sub,color,tag){
-    const x=COL[col],y=row-CH/2,w=CW,h=CH;
-    // glow
-    ctx.shadowColor=color;ctx.shadowBlur=5+2*Math.sin(t*0.05);
-    ctx.fillStyle=S;ctx.globalAlpha=0.93;
-    rr(x,y,w,h,CR);ctx.fill();
-    ctx.shadowBlur=0;ctx.globalAlpha=1;
-    ctx.strokeStyle=color;ctx.lineWidth=1.1;
-    rr(x,y,w,h,CR);ctx.stroke();
-    // top accent bar
-    ctx.fillStyle=color;ctx.globalAlpha=0.18;
-    rr(x,y,w,h*0.28,CR);ctx.fill();ctx.globalAlpha=1;
-    // tag pill
-    if(tag){
-      const tw=ctx.measureText(tag).width+8;
-      ctx.fillStyle=color;ctx.globalAlpha=0.2;
-      rr(x+w-tw-4,y+3,tw,12,3);ctx.fill();ctx.globalAlpha=1;
-      ctx.fillStyle=color;ctx.font='bold 5.5px monospace';ctx.textAlign='center';
-      ctx.fillText(tag,x+w-tw/2-4,y+11);
-    }
-    // label
-    ctx.fillStyle=color;ctx.font='bold 8px sans-serif';ctx.textAlign='center';
-    ctx.fillText(label,x+w/2,y+h*0.58);
-    // sub
-    ctx.fillStyle='rgba(139,180,248,0.5)';ctx.font='6px sans-serif';
-    ctx.fillText(sub,x+w/2,y+h*0.80);
+  const coreR=H*0.16;
+
+  function nodeCenter(dir,i){
+    const x = dir==='in' ? INX+nodeW : OUTX;
+    return {x, y:rowY[i]+nodeH/2};
   }
 
-  function drawLLMCore(){
-    const x=COL[2],y=H*0.07,w=CW,h=H*0.86,r=8;
-    // outer glow
-    ctx.shadowColor=A2;ctx.shadowBlur=12+4*Math.sin(t*0.04);
-    ctx.fillStyle='rgba(22,27,34,0.96)';ctx.globalAlpha=0.97;
-    rr(x,y,w,h,r);ctx.fill();
-    ctx.shadowBlur=0;ctx.globalAlpha=1;
-    ctx.strokeStyle=A2;ctx.lineWidth=1.5;
-    rr(x,y,w,h,r);ctx.stroke();
-    // rotating ring inside
-    const cx2=x+w/2,cy2=y+h*0.42,rng=w*0.32;
-    ctx.save();ctx.translate(cx2,cy2);ctx.rotate(t*0.008);
-    ctx.beginPath();ctx.arc(0,0,rng,0,Math.PI*2);
-    ctx.strokeStyle=A2;ctx.lineWidth=1;ctx.setLineDash([5,8]);ctx.globalAlpha=0.25;ctx.stroke();
-    ctx.setLineDash([]);ctx.globalAlpha=1;ctx.restore();
-    // core circle
-    ctx.beginPath();ctx.arc(cx2,cy2,rng*0.7,0,Math.PI*2);
-    const cg=ctx.createRadialGradient(cx2,cy2,0,cx2,cy2,rng*0.7);
-    cg.addColorStop(0,'rgba(93,156,245,0.22)');cg.addColorStop(1,'rgba(22,27,34,0.9)');
-    ctx.fillStyle=cg;ctx.fill();
-    ctx.strokeStyle=A2;ctx.lineWidth=1.2;ctx.stroke();
-    // pulsing center dot
-    ctx.beginPath();ctx.arc(cx2,cy2,3,0,Math.PI*2);
-    ctx.fillStyle=A2;ctx.globalAlpha=0.5+0.4*Math.sin(t*0.12);ctx.fill();ctx.globalAlpha=1;
-    // header label
-    ctx.fillStyle=A;ctx.font='bold 7px sans-serif';ctx.textAlign='center';
-    ctx.fillText('LLM + RAG',cx2,y+h*0.17);
-    ctx.fillStyle='rgba(139,180,248,0.45)';ctx.font='5.5px monospace';
-    ctx.fillText('Clinical NLP',cx2,y+h*0.24);
-    // labels inside circle
-    ctx.fillStyle=A;ctx.font='bold 9px sans-serif';
-    ctx.fillText('AI Core',cx2,cy2+3);
-    // HIPAA badge bottom of card
-    ctx.fillStyle='rgba(93,222,154,0.1)';
-    rr(x+8,y+h*0.82,w-16,16,4);ctx.fill();
-    ctx.strokeStyle=G;ctx.lineWidth=0.7;ctx.globalAlpha=0.4;
-    rr(x+8,y+h*0.82,w-16,16,4);ctx.stroke();ctx.globalAlpha=1;
-    ctx.fillStyle=G;ctx.font='bold 6px monospace';ctx.textAlign='center';
-    ctx.fillText('HIPAA  |  AWS',cx2,y+h*0.82+10);
-    // AWS tag bottom
-    ctx.fillStyle='rgba(139,180,248,0.25)';ctx.font='5.5px monospace';
-    ctx.fillText('Encrypted',cx2,y+h*0.93);
-  }
-
-  function drawConn(cn){
-    const x0=COL[conns.indexOf(cn)>=0?0:0];// unused
-    const sx=cn.x0===2?COL[2]+CW:COL[cn.x0]+CW;
-    const sy=cn.y0;
-    const ex=cn.x1===2?COL[2]:COL[cn.x1];
-    const ey=cn.y1;
-    ctx.beginPath();ctx.moveTo(sx,sy);
-    ctx.bezierCurveTo((sx+ex)/2,sy,(sx+ex)/2,ey,ex,ey);
-    ctx.strokeStyle=cn.c;ctx.lineWidth=0.9;ctx.globalAlpha=0.13;ctx.stroke();ctx.globalAlpha=1;
-  }
-
-  function parPos(par){
-    const cn=par.cn;
-    const sx=cn.x0===2?COL[2]+CW:COL[cn.x0]+CW;
-    const sy=cn.y0;
-    const ex=cn.x1===2?COL[2]:COL[cn.x1];
-    const ey=cn.y1;
+  function ppos(par){
+    const nc=nodeCenter(par.dir,par.i);
     const p=par.p;
-    const mx=(sx+ex)/2;
+    // bezier from node edge to core edge
+    let x0,y0,x1,y1;
+    if(par.dir==='in'){
+      x0=nc.x; y0=nc.y;
+      // aim at core left edge
+      const ang=Math.atan2(nc.y-cy, nc.x-cx);
+      x1=cx+Math.cos(ang)*coreR; y1=cy+Math.sin(ang)*coreR;
+    } else {
+      // from core right edge to node
+      const ang=Math.atan2(nc.y-cy, nc.x-cx);
+      x0=cx+Math.cos(ang)*coreR; y0=cy+Math.sin(ang)*coreR;
+      x1=nc.x; y1=nc.y;
+    }
+    const mx=(x0+x1)/2;
     return{
-      x:Math.pow(1-p,3)*sx+3*Math.pow(1-p,2)*p*mx+3*(1-p)*p*p*mx+Math.pow(p,3)*ex,
-      y:Math.pow(1-p,3)*sy+3*Math.pow(1-p,2)*p*sy+3*(1-p)*p*p*ey+Math.pow(p,3)*ey
+      x:Math.pow(1-p,3)*x0+3*Math.pow(1-p,2)*p*mx+3*(1-p)*p*p*mx+Math.pow(p,3)*x1,
+      y:Math.pow(1-p,3)*y0+3*Math.pow(1-p,2)*p*y0+3*(1-p)*p*p*y1+Math.pow(p,3)*y1
     };
+  }
+
+  function drawCard(dir,i,label,sub,color){
+    const x=dir==='in'?INX:OUTX;
+    const y=rowY[i];
+    const w=nodeW, h=nodeH;
+    // glow
+    ctx.shadowColor=color; ctx.shadowBlur=6+2*Math.sin(t*0.05+i);
+    ctx.fillStyle=S; ctx.globalAlpha=0.95;
+    rr(x,y,w,h,nodeR); ctx.fill();
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
+    ctx.strokeStyle=color; ctx.lineWidth=1.3;
+    rr(x,y,w,h,nodeR); ctx.stroke();
+    // left accent bar
+    ctx.fillStyle=color; ctx.globalAlpha=0.7;
+    rr(x,y,4,h,2); ctx.fill(); ctx.globalAlpha=1;
+    // label
+    ctx.fillStyle=color; ctx.font='bold 8.5px sans-serif'; ctx.textAlign='center';
+    ctx.fillText(label, x+w/2, y+h*0.48);
+    // sub
+    ctx.fillStyle='rgba(139,180,248,0.5)'; ctx.font='6.5px sans-serif';
+    ctx.fillText(sub, x+w/2, y+h*0.74);
+  }
+
+  function drawConnector(dir,i,color){
+    const nc=nodeCenter(dir,i);
+    let x0,y0,x1,y1;
+    if(dir==='in'){
+      x0=nc.x; y0=nc.y;
+      const ang=Math.atan2(nc.y-cy, nc.x-cx);
+      x1=cx+Math.cos(ang)*coreR; y1=cy+Math.sin(ang)*coreR;
+    } else {
+      const ang=Math.atan2(nc.y-cy, nc.x-cx);
+      x0=cx+Math.cos(ang)*coreR; y0=cy+Math.sin(ang)*coreR;
+      x1=nc.x; y1=nc.y;
+    }
+    const mx=(x0+x1)/2;
+    ctx.beginPath(); ctx.moveTo(x0,y0);
+    ctx.bezierCurveTo(mx,y0,mx,y1,x1,y1);
+    ctx.strokeStyle=color; ctx.lineWidth=1; ctx.globalAlpha=0.14; ctx.stroke(); ctx.globalAlpha=1;
+  }
+
+  function drawCore(){
+    // outer pulse ring
+    ctx.beginPath(); ctx.arc(cx,cy,coreR+7,0,Math.PI*2);
+    ctx.strokeStyle=A2; ctx.lineWidth=1; ctx.globalAlpha=0.1+0.06*Math.sin(t*0.05); ctx.stroke(); ctx.globalAlpha=1;
+    // spinning dashed ring
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(t*0.007);
+    ctx.beginPath(); ctx.arc(0,0,coreR+2,0,Math.PI*2);
+    ctx.strokeStyle=A2; ctx.lineWidth=1.2; ctx.setLineDash([5,9]); ctx.globalAlpha=0.28; ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha=1; ctx.restore();
+    // filled circle
+    ctx.beginPath(); ctx.arc(cx,cy,coreR,0,Math.PI*2);
+    const g=ctx.createRadialGradient(cx,cy,0,cx,cy,coreR);
+    g.addColorStop(0,'rgba(93,156,245,0.22)'); g.addColorStop(1,'rgba(22,27,34,0.94)');
+    ctx.fillStyle=g; ctx.fill();
+    ctx.strokeStyle=A2; ctx.lineWidth=1.6; ctx.stroke();
+    // core text
+    ctx.fillStyle=A; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
+    ctx.fillText('LLM + RAG', cx, cy-8);
+    ctx.fillStyle='rgba(139,180,248,0.5)'; ctx.font='6.5px sans-serif';
+    ctx.fillText('Clinical NLP Engine', cx, cy+7);
+    // HIPAA pill
+    const pw=54, ph=14;
+    ctx.fillStyle='rgba(93,222,154,0.1)';
+    rr(cx-pw/2, cy+18, pw, ph, 4); ctx.fill();
+    ctx.strokeStyle=G; ctx.lineWidth=0.7; ctx.globalAlpha=0.45;
+    rr(cx-pw/2, cy+18, pw, ph, 4); ctx.stroke(); ctx.globalAlpha=1;
+    ctx.fillStyle=G; ctx.font='bold 6px monospace'; ctx.textAlign='center';
+    ctx.fillText('HIPAA  +  AWS', cx, cy+28);
+    // pulsing center dot
+    ctx.beginPath(); ctx.arc(cx,cy-20,3,0,Math.PI*2);
+    ctx.fillStyle=A2; ctx.globalAlpha=0.5+0.4*Math.sin(t*0.13); ctx.fill(); ctx.globalAlpha=1;
   }
 
   function frame(){
     ctx.clearRect(0,0,W,H);
-    ctx.fillStyle=BG;ctx.fillRect(0,0,W,H);
-    // grid
-    ctx.strokeStyle='rgba(139,180,248,0.025)';ctx.lineWidth=0.5;
-    for(let x=0;x<W;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
-    for(let y=0;y<H;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+    ctx.fillStyle=BG; ctx.fillRect(0,0,W,H);
+    // subtle grid
+    ctx.strokeStyle='rgba(139,180,248,0.025)'; ctx.lineWidth=0.5;
+    for(let x=0;x<W;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    for(let y=0;y<H;y+=50){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
 
     // connectors
-    conns.forEach(cn=>drawConn(cn));
+    INPUTS.forEach((n,i)=>drawConnector('in',i,n.color));
+    OUTPUTS.forEach((n,i)=>drawConnector('out',i,n.color));
 
     // particles
     pars.forEach(p=>{
       p.p=(p.p+p.sp)%1;
-      const pos=parPos(p);
-      ctx.beginPath();ctx.arc(pos.x,pos.y,2.3,0,Math.PI*2);
-      ctx.fillStyle=p.c;ctx.globalAlpha=0.88;ctx.fill();ctx.globalAlpha=1;
+      const pos=ppos(p);
+      ctx.beginPath(); ctx.arc(pos.x,pos.y,2.4,0,Math.PI*2);
+      ctx.fillStyle=p.c; ctx.globalAlpha=0.9; ctx.fill(); ctx.globalAlpha=1;
     });
 
-    // LLM core (drawn before cards so cards overlay edges)
-    drawLLMCore();
+    // core
+    drawCore();
 
-    // all cards except col 2 (core)
-    cards.forEach(cd=>drawCard(cd.col,cd.row,cd.label,cd.sub,cd.color,cd.tag));
+    // cards
+    INPUTS.forEach((n,i)=>drawCard('in',i,n.label,n.sub,n.color));
+    OUTPUTS.forEach((n,i)=>drawCard('out',i,n.label,n.sub,n.color));
 
-    // column section labels
-    const labels=[['INPUTS','rgba(139,180,248,0.3)'],['EXTRACT','rgba(139,180,248,0.3)'],null,['GENERATE','rgba(139,180,248,0.3)'],['DELIVER','rgba(139,180,248,0.3)']];
-    labels.forEach((lb,i)=>{
-      if(!lb)return;
-      ctx.fillStyle=lb[1];ctx.font='bold 5.5px monospace';ctx.textAlign='center';
-      ctx.fillText(lb[0],COL[i]+CW/2,H*0.97);
-    });
-    ctx.fillStyle='rgba(93,156,245,0.3)';ctx.font='bold 5.5px monospace';ctx.textAlign='center';
-    ctx.fillText('AI CORE',COL[2]+CW/2,H*0.97);
-
-    t++;requestAnimationFrame(frame);
+    t++; requestAnimationFrame(frame);
   }
   frame();
 }
@@ -970,7 +933,7 @@ function drawC5(){
   frame();
 }
 
-// ── SLIDESHOW ──
+// slideshow
 (function(){
   const sw=document.getElementById('sw');if(!sw)return;
   const imgs=sw.querySelectorAll('img');
@@ -982,7 +945,6 @@ function drawC5(){
   timer=setInterval(()=>go(cur+1),4500);
 })();
 
-// ── INIT �
 window.addEventListener('load',()=>{drawC1();drawC5();});
 window.addEventListener('resize',()=>{drawC1();drawC5();});
 </script>
