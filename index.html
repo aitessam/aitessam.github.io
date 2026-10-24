@@ -164,6 +164,8 @@ h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.85rem,2.8vw,2.
 .pbulls li::before{content:'›';position:absolute;left:0;color:var(--acc);font-size:.78rem;top:.05rem;}
 .pstack{display:flex;flex-wrap:wrap;gap:.32rem;}
 .stk{background:rgba(139,180,248,.07);border:1px solid rgba(139,180,248,.15);color:var(--acc);padding:.16rem .52rem;border-radius:3px;font-size:.65rem;font-weight:700;letter-spacing:.04em;}
+.plink{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;align-self:flex-start;font-size:.74rem;font-weight:600;color:var(--acc);text-decoration:none;border-bottom:1px solid rgba(139,180,248,.3);padding-bottom:.1rem;transition:border-color .2s;}
+.plink:hover{border-color:var(--acc);}
 
 /* ── EXPERIENCE — card layout ── */
 .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
@@ -457,6 +459,52 @@ footer strong{color:var(--acc);}
             <text x="333" y="201" font-size="6.5" fill="#5de69a" opacity=".65" font-family="monospace">Action: Follow-up</text>
             <text x="190" y="265" font-size="8" fill="#8bb4f8" opacity=".25" text-anchor="middle" font-family="monospace">~40% reduction in manual review</text>
           </svg>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: DocScribe (open source) - SVG animated left -->
+      <div class="pj-wide">
+        <div class="pj-img" style="background:#1c2128;min-height:280px;">
+          <svg viewBox="0 0 500 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;">
+            <rect width="500" height="280" fill="#1c2128"/>
+            <ellipse cx="250" cy="140" rx="220" ry="110" fill="rgba(139,180,248,0.03)"/>
+            <text x="70" y="78" font-size="7.5" fill="#8bb4f8" opacity=".5" text-anchor="middle" font-family="monospace">Live audio</text>
+            <g fill="#5d9cf5" opacity=".75">
+              <rect x="34" y="120" width="5" height="40" rx="2"><animate attributeName="height" values="40;14;40" dur="0.9s" repeatCount="indefinite"/><animate attributeName="y" values="120;133;120" dur="0.9s" repeatCount="indefinite"/></rect>
+              <rect x="46" y="110" width="5" height="60" rx="2"><animate attributeName="height" values="60;24;60" dur="1.1s" repeatCount="indefinite"/><animate attributeName="y" values="110;128;110" dur="1.1s" repeatCount="indefinite"/></rect>
+              <rect x="58" y="125" width="5" height="30" rx="2"><animate attributeName="height" values="30;56;30" dur="0.8s" repeatCount="indefinite"/><animate attributeName="y" values="125;112;125" dur="0.8s" repeatCount="indefinite"/></rect>
+              <rect x="70" y="105" width="5" height="70" rx="2"><animate attributeName="height" values="70;30;70" dur="1.2s" repeatCount="indefinite"/><animate attributeName="y" values="105;125;105" dur="1.2s" repeatCount="indefinite"/></rect>
+              <rect x="82" y="118" width="5" height="44" rx="2"><animate attributeName="height" values="44;18;44" dur="0.7s" repeatCount="indefinite"/><animate attributeName="y" values="118;131;118" dur="0.7s" repeatCount="indefinite"/></rect>
+              <rect x="94" y="128" width="5" height="24" rx="2"><animate attributeName="height" values="24;48;24" dur="1s" repeatCount="indefinite"/><animate attributeName="y" values="128;116;128" dur="1s" repeatCount="indefinite"/></rect>
+              <rect x="106" y="122" width="5" height="36" rx="2"><animate attributeName="height" values="36;12;36" dur="0.85s" repeatCount="indefinite"/><animate attributeName="y" values="122;134;122" dur="0.85s" repeatCount="indefinite"/></rect>
+            </g>
+            <text x="70" y="205" font-size="7" fill="#8bb4f8" opacity=".4" text-anchor="middle" font-family="monospace">Urdu + English</text>
+            <path d="M122,140 L148,140" stroke="#5d9cf5" stroke-width="1.3" opacity=".55" stroke-dasharray="4,3"><animate attributeName="stroke-dashoffset" from="14" to="0" dur="1s" repeatCount="indefinite"/></path>
+            <rect x="150" y="70" width="150" height="140" rx="8" fill="#21262d" stroke="#8bb4f8" stroke-width=".8" opacity=".7"/>
+            <text x="225" y="88" font-size="7.5" fill="#8bb4f8" opacity=".6" text-anchor="middle" font-family="monospace">Live transcript</text>
+            <text x="288" y="110" font-size="10" fill="#8bb4f8" opacity=".75" text-anchor="end">&#1605;&#1580;&#1726;&#1746; &#1578;&#1740;&#1606; &#1583;&#1606; &#1587;&#1746; &#1576;&#1582;&#1575;&#1585; &#1729;&#1746;</text>
+            <text x="162" y="130" font-size="7" fill="#8bb4f8" opacity=".55" font-family="monospace">Dr: Any headache?</text>
+            <text x="288" y="150" font-size="10" fill="#8bb4f8" opacity=".75" text-anchor="end">&#1580;&#1740;&#1548; &#1587;&#1585; &#1605;&#1740;&#1722; &#1583;&#1585;&#1583; &#1729;&#1746;</text>
+            <rect x="162" y="164" width="96" height="6" rx="3" fill="rgba(139,180,248,.18)"><animate attributeName="width" values="20;110;20" dur="3s" repeatCount="indefinite"/></rect>
+            <text x="162" y="194" font-size="6.5" fill="#5d9cf5" opacity=".55" font-family="monospace">&#9679; streaming</text>
+            <path d="M302,140 L328,140" stroke="#5d9cf5" stroke-width="1.3" opacity=".55" stroke-dasharray="4,3"><animate attributeName="stroke-dashoffset" from="14" to="0" dur="1s" repeatCount="indefinite"/></path>
+            <rect x="330" y="60" width="145" height="160" rx="8" fill="#161b22" stroke="#5de69a" stroke-width=".8" opacity=".75"/>
+            <text x="402" y="80" font-size="7.5" fill="#5de69a" opacity=".75" text-anchor="middle" font-family="monospace">Structured note</text>
+            <text x="342" y="102" font-size="6.5" fill="#8bb4f8" opacity=".6" font-family="monospace" xml:space="preserve">Complaints  Fever, 3 days</text>
+            <text x="342" y="120" font-size="6.5" fill="#8bb4f8" opacity=".6" font-family="monospace" xml:space="preserve">Symptoms    Headache</text>
+            <text x="342" y="138" font-size="6.5" fill="#8bb4f8" opacity=".6" font-family="monospace" xml:space="preserve">Diagnosis   Viral fever</text>
+            <text x="342" y="156" font-size="6.5" fill="#8bb4f8" opacity=".6" font-family="monospace" xml:space="preserve">Medication  Paracetamol</text>
+            <text x="342" y="174" font-size="6.5" fill="#8bb4f8" opacity=".6" font-family="monospace" xml:space="preserve">Lab tests   CBC</text>
+            <text x="342" y="202" font-size="6.5" fill="#5de69a" opacity=".7" font-family="monospace">&#10003; 8 clinical fields</text>
+            <text x="250" y="262" font-size="8" fill="#8bb4f8" opacity=".25" text-anchor="middle" font-family="monospace">conversation &#8594; structured clinical note</text>
+          </svg>
+        </div>
+        <div class="pj-body">
+          <div class="pdom">Healthcare AI &bull; Speech AI &bull; Open Source</div>
+          <div class="ptit">DocScribe: Real-Time Bilingual Clinical Transcription</div>
+          <p class="pdesc">Listens to a doctor-patient consultation, transcribes natural Urdu and English code-switching live, and turns the conversation into a structured clinical note with an LLM. Runs fully locally with Ollama or against any OpenAI-compatible endpoint, with correct right-to-left Urdu rendering, resilient retries and a fully tested FastAPI and Streamlit stack.</p>
+          <div class="pstack"><span class="stk">Speech-to-Text</span><span class="stk">LLMs</span><span class="stk">Ollama</span><span class="stk">FastAPI</span><span class="stk">Streamlit</span><span class="stk">Urdu NLP</span><span class="stk">Docker</span><span class="stk">CI/CD</span></div>
+          <a class="plink" href="https://github.com/aitessam/doc_scribe" target="_blank" rel="noopener">View on GitHub &rarr;</a>
         </div>
       </div>
 
