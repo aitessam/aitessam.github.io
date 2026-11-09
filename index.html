@@ -77,9 +77,9 @@ h1{font-size:clamp(2.4rem,5.2vw,4.1rem);line-height:1.04;letter-spacing:-.035em;
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
 .meta-row{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13.5px;color:var(--tx3)}
 .meta-row span{display:inline-flex;align-items:center;gap:7px}
-.photo-card{position:relative;border-radius:22px;padding:1px;background:linear-gradient(160deg,rgba(103,232,249,.5),rgba(167,139,250,.15) 40%,rgba(148,163,184,.08))}
+.photo-card{position:relative;width:100%;max-width:380px;justify-self:end;border-radius:22px;padding:1px;background:linear-gradient(160deg,rgba(103,232,249,.5),rgba(167,139,250,.15) 40%,rgba(148,163,184,.08))}
 .photo-in{border-radius:21px;overflow:hidden;background:var(--card);position:relative}
-.photo-in img{aspect-ratio:1/1.08;object-fit:cover;object-position:50% 20%;filter:grayscale(1) contrast(1.05)}
+.photo-in img{aspect-ratio:1/1;width:100%;height:auto;object-fit:cover;object-position:50% 15%;filter:grayscale(1) contrast(1.05)}
 .photo-in::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(7,9,13,.92))}
 .term{position:absolute;left:16px;right:16px;bottom:16px;z-index:2;background:rgba(12,16,22,.86);backdrop-filter:blur(10px);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;font:12.5px/1.7 var(--mono);color:var(--tx2)}
 .term .k{color:var(--c1)}.term .v{color:#e2e8f0}.term .s{color:var(--ok)}
@@ -141,6 +141,10 @@ h2{font-size:clamp(1.8rem,3.4vw,2.6rem);letter-spacing:-.03em;line-height:1.1;fo
 .priv{font:500 12px var(--mono);color:var(--tx3);display:inline-flex;align-items:center;gap:6px}
 .more{display:flex;justify-content:center;margin-top:34px}
 
+.viz{position:relative;margin:-6px -6px 20px;border-radius:12px;background:var(--bg2);border:1px solid var(--line);overflow:hidden;min-height:150px;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px;background-position:-1px -1px}
+.viz svg{display:block;width:100%;height:auto}
+.viz.big{min-height:170px}
+
 /* timeline */
 .tl{position:relative;margin-left:8px}
 .tl::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(var(--c1),var(--c2) 40%,var(--line) 100%)}
@@ -196,7 +200,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
 /* responsive */
 @media (max-width:980px){
   .hero-g{grid-template-columns:1fr;gap:44px}
-  .photo-card{max-width:420px}
+  .photo-card{max-width:340px;justify-self:start}
   .feature{grid-template-columns:1fr}.feature-vis{border-left:0;border-top:1px solid var(--line)}
   .sk-g{grid-template-columns:1fr 1fr}.rec-g{grid-template-columns:1fr 1fr}
   .big .cs{grid-template-columns:1fr}
@@ -261,7 +265,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
 <section id="hero">
   <div class="wrap hero-g">
     <div>
-      <div class="pill"><span class="dot"></span>Open to remote roles and relocation &middot; one month's notice</div>
+      <div class="pill"><span class="dot"></span>Open to remote roles and relocation</div>
       <h1>I build AI that <span class="grad">clinicians trust</span> and teams can ship.</h1>
       <p class="lead">Senior AI Engineer with 5+ years taking <strong>LLM, RAG and agentic systems</strong> from raw data to production in regulated industries. Today I'm building a <strong>patient digital twin</strong> for in-silico drug studies; before that, the AI layer of a live hospital product.</p>
       <div class="cta-row">
@@ -365,6 +369,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
     <div class="proj-g">
 
       <article class="proj big rv" data-tags="oss health">
+        <div class="viz" data-flow="Question~text / voice>LLM~router>Refuse!|General~LLM!|Patient~record>BM25 +~FAISS>Rerank~top 5>Grounded~answer"></div>
         <div class="proj-top"><div class="domain">Healthcare AI &middot; RAG &middot; Agents</div><span class="stars" data-repo="MedRAG"></span></div>
         <h3>MedRAG: grounded answers from the patient's own record</h3>
         <p class="one">A Flask API that answers health questions by text or voice, routing each question and answering only from retrieved facts.</p>
@@ -378,6 +383,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="oss health">
+        <div class="viz" data-flow="Mic~Urdu + EN>Live~STT>Transcript>LLM>8-field~note"></div>
         <div class="proj-top"><div class="domain">Speech AI &middot; Clinical NLP</div><span class="stars" data-repo="doc_scribe"></span></div>
         <h3>DocScribe: live Urdu + English clinical notes</h3>
         <p class="one">Transcribes code-switched consultations in real time and turns them into an eight-field structured clinical note.</p>
@@ -390,6 +396,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="oss arabic">
+        <div class="viz" data-flow="PDF~+ OCR>Hybrid~retrieval>LangGraph~agent>Entities|Calculator|Compliance>Answer~+ audit"></div>
         <div class="proj-top"><div class="domain">Fintech &middot; Agentic AI</div><span class="stars" data-repo="Fintech-Agent-Arabic"></span></div>
         <h3>Arabic fintech document agent</h3>
         <p class="one">Ask questions about bank statements, KYC or loan forms in Arabic, English or a mix of both.</p>
@@ -402,6 +409,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="oss arabic">
+        <div class="viz" data-flow="Arabic~PDF>RTL fix +~normalise>BM25|e5 dense>Rerank>Cited~answer"></div>
         <div class="proj-top"><div class="domain">Arabic NLP &middot; RAG</div><span class="stars" data-repo="ARABERT_RAG"></span></div>
         <h3>Arabic document RAG with page citations</h3>
         <p class="one">Upload Arabic reports and ask in Arabic or English; every claim cites the document and page.</p>
@@ -414,6 +422,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="oss arabic health">
+        <div class="viz" data-flow="EN / AR~query>BM25|FAISS>RRF~fusion>Rerank>Cited~answer"></div>
         <div class="proj-top"><div class="domain">Bilingual RAG &middot; Evaluation</div><span class="stars" data-repo="bilingual-clinical-rag"></span></div>
         <h3>Bilingual clinical RAG assistant</h3>
         <p class="one">English and Arabic clinical question answering over one corpus, with citations to the exact chunk.</p>
@@ -426,6 +435,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj big rv" data-tags="prod health">
+        <div class="viz" data-flow="Scanned~records|Dictation|Clinician~question>OCR + LLM~extraction|Speech-~to-text|RAG +~guardrails>FHIR R4~in EHR|SOAP~note|Safe~answer"></div>
         <div class="proj-top"><div class="domain">Production &middot; Healthcare AI &middot; Askari Technologies</div><span class="priv"><svg class="i"><use href="#i-lock"/></svg>Private code</span></div>
         <h3>The AI layer of a live hospital product</h3>
         <p class="one">From document ingestion to real-time clinical Q&amp;A, used by physicians across several specialties.</p>
@@ -438,6 +448,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="prod health">
+        <div class="viz" data-flow="CT~scan>CNN~classifier>LLM~report>Radiologist~review"></div>
         <div class="proj-top"><div class="domain">Medical imaging &middot; Tensor Labs</div><span class="priv"><svg class="i"><use href="#i-lock"/></svg>Private code</span></div>
         <h3>Lung nodule classification with AI-written reports</h3>
         <p class="one">CNN inference plus LLM-generated clinical reports, served on GPU through FastAPI inside a live radiology workflow.</p>
@@ -445,6 +456,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="prod">
+        <div class="viz" data-flow="Images~(thousands/day)>Vision~API>Similarity~rank>Clean~match|GenAI~fallback>Enriched~output"></div>
         <div class="proj-top"><div class="domain">GenAI &middot; Computer vision &middot; Tensor Labs</div><span class="priv"><svg class="i"><use href="#i-lock"/></svg>Private code</span></div>
         <h3>Image intelligence and GenAI backends at scale</h3>
         <p class="one">A platform processing thousands of images a day with Google Vision and async pipelines, plus three AI backends (watermark removal, virtual try-on, image automation) on AWS with GPU serving and zero-downtime deploys.</p>
@@ -452,6 +464,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="prod">
+        <div class="viz" data-flow="UAV~telemetry|Drone~camera>LSTM fault~detector|YOLO~on-device>Early~alert|Person~detected"></div>
         <div class="proj-top"><div class="domain">Edge AI &middot; Defence research</div><span class="priv"><svg class="i"><use href="#i-lock"/></svg>Private code</span></div>
         <h3>Reliability and vision for autonomous drones</h3>
         <p class="one">LSTM fault detection on multi-sensor UAV telemetry, and YOLO human detection running on-drone with no cloud.</p>
@@ -459,6 +472,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
       </article>
 
       <article class="proj rv" data-tags="oss">
+        <div class="viz" data-flow="Client~+ JWT>Auth0~verify>Quota~service>PostgreSQL"></div>
         <div class="proj-top"><div class="domain">Backend &middot; TypeScript</div><span class="stars" data-repo="Chat-Subscription-api"></span></div>
         <h3>Chat subscription API</h3>
         <p class="one">Express, TypeORM and PostgreSQL with a domain-driven design: quotas, subscription bundles, usage tracking and Auth0 JWT validation.</p>
@@ -556,7 +570,7 @@ footer{padding:34px 0 44px;color:var(--tx3);font-size:13.5px}
     <div class="cta-box rv">
       <div class="eyebrow">Let's talk</div>
       <h2>Need someone to take AI <span class="grad">from prototype to production?</span></h2>
-      <p class="sub">I'm open to senior AI engineering roles: remote with EU, UK or Gulf teams, or relocation with visa sponsorship. One month's notice.</p>
+      <p class="sub">I'm open to senior AI engineering roles: remote with EU, UK or Gulf teams, or relocation with visa sponsorship.</p>
       <div class="cta-row">
         <a class="btn btn-p" href="mailto:aitessam@gmail.com?subject=Opportunity%20for%20Aitessam"><svg class="i"><use href="#i-mail"/></svg>Email me</a>
         <a class="btn btn-g" href="Muhammad_Aitessam_CV.pdf" download><svg class="i"><use href="#i-dl"/></svg>Download CV</a>
@@ -593,12 +607,52 @@ links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.cla
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
+// project pipeline diagrams
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;let vizN=0;
+function drawViz(el){
+  const W=Math.max(260,el.clientWidth),vert=W<400,id='vg'+(vizN++);
+  const stages=el.dataset.flow.split('>').map(st=>st.split('|').map(t=>({end:t.endsWith('!'),lines:t.replace('!','').split('~')})));
+  const S=stages.length,nodes=[];let H;
+  if(!vert){
+    const maxN=Math.max(...stages.map(s=>s.length));H=Math.max(el.classList.contains('big')?170:150,maxN*52+24);
+    const colW=W/S,nw=Math.min(colW-(colW<110?8:18),150),nh=40;
+    stages.forEach((st,i)=>{const gap=(H-st.length*nh)/(st.length+1);
+      st.forEach((n,j)=>nodes.push(Object.assign(n,{s:i,x:colW*i+(colW-nw)/2,y:gap+j*(nh+gap),w:nw,h:nh})))});
+  }else{
+    const rowH=62,nh=42;H=S*rowH+14;
+    stages.forEach((st,i)=>{const cw=(W-24)/st.length,nw=Math.min(cw-10,200);
+      st.forEach((n,j)=>nodes.push(Object.assign(n,{s:i,x:12+cw*j+(cw-nw)/2,y:14+i*rowH,w:nw,h:nh})))});
+  }
+  const by=i=>nodes.filter(n=>n.s===i),edges=[];
+  for(let i=0;i<S-1;i++){const all=by(i),a=all.filter(n=>!n.end),b=by(i+1);
+    if(all.length===b.length&&a.length===b.length)a.forEach((n,k)=>edges.push([n,b[k]]));
+    else a.forEach(n=>b.forEach(m=>edges.push([n,m])));}
+  const label=el.dataset.flow.replace(/!/g,'').replace(/~/g,' ').replace(/>/g,', then ').replace(/\|/g,' or ');
+  let svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Pipeline: ${label}"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="#67e8f9"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>`;
+  edges.forEach(([a,b],k)=>{let d;
+    if(!vert){const x0=a.x+a.w,y0=a.y+a.h/2,x1=b.x,y1=b.y+b.h/2,m=(x0+x1)/2;d=`M${x0} ${y0}C${m} ${y0} ${m} ${y1} ${x1} ${y1}`;}
+    else{const x0=a.x+a.w/2,y0=a.y+a.h,x1=b.x+b.w/2,y1=b.y,m=(y0+y1)/2;d=`M${x0} ${y0}C${x0} ${m} ${x1} ${m} ${x1} ${y1}`;}
+    svg+=`<path d="${d}" fill="none" stroke="rgba(148,163,184,.28)" stroke-width="1.3"/>`;
+    if(!RM)svg+=`<circle r="2.6" fill="url(#${id})"><animateMotion dur="${(2+((k*0.37)%1.4)).toFixed(2)}s" begin="${((k*0.53)%2).toFixed(2)}s" repeatCount="indefinite" path="${d}"/></circle>`;});
+  nodes.forEach(n=>{const last=n.s===S-1,first=n.s===0;
+    const stroke=last?`url(#${id})`:n.end?'rgba(251,191,36,.5)':'rgba(148,163,184,.32)';
+    svg+=`<rect x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="9" fill="${last?'#121a24':'#141b25'}" stroke="${stroke}" stroke-width="${last?1.6:1.1}"/>`;
+    const longest=Math.max(...n.lines.map(l=>l.length)),fs=Math.max(8.5,Math.min(11.5,(n.w-12)/(longest*0.62)));
+    const lh=fs*1.25,y0=n.y+n.h/2-(n.lines.length-1)*lh/2+fs*0.35;
+    n.lines.forEach((l,i)=>svg+=`<text x="${n.x+n.w/2}" y="${(y0+i*lh).toFixed(1)}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="${fs.toFixed(1)}" fill="${last?'#e8edf4':first?'#a5f3fc':'#a3afbf'}" font-weight="${last?600:400}">${l}</text>`);});
+  el.innerHTML=svg+'</svg>';
+}
+const vizEls=[...document.querySelectorAll('.viz[data-flow]')];
+vizEls.forEach(v=>{if(v.closest('.big'))v.classList.add('big')});
+const drawAll=()=>vizEls.forEach(v=>{if(v.offsetParent)drawViz(v)});
+drawAll();let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(drawAll,150)});
+
 // project filters
 const btns=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.proj');
 btns.forEach(b=>b.addEventListener('click',()=>{
   btns.forEach(x=>x.classList.toggle('on',x===b));
   const f=b.dataset.f;
-  cards.forEach(c=>{c.style.display=(f==='all'||c.dataset.tags.split(' ').includes(f))?'':'none'});
+  cards.forEach(c=>{c.style.display=(f==='all'||c.dataset.tags.split(' ').includes(f))?'':'none'});drawAll();
 }));
 
 // copy email
